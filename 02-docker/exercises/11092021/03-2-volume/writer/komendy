@@ -1,0 +1,4 @@
+docker build -t writer:1.0 .
+
+docker run -v writer-reader:/tmp --name writer -d writer:1.0
+

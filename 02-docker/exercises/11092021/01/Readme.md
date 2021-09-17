@@ -1,0 +1,1 @@
+Utwórz Dockerfile bazujący na konfiguracji nginx. Zapewnij, aby serwis nginx był osiągalny z hosta.

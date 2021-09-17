@@ -1,0 +1,4 @@
+Host aws-aicor-mgodny
+  Hostname git-codecommit.eu-central-1.amazonaws.com
+  User APKA2BHGYBHSXUJ645VB
+  IdentityFile ~/.ssh/AWS-Aicor-CodeCommit-ISADevOpsR1

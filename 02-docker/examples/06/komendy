@@ -1,0 +1,1 @@
+docker run --rm -v `pwd`/tmp:/app/tmp_dir  catman:1.0 tmp_dir/some_file.txt

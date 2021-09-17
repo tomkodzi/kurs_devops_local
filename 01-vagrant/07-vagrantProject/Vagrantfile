@@ -1,0 +1,47 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "aspyatkin/ubuntu-18.04-server"
+  
+  config.vm.network "private_network", type: "dhcp"
+  
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+    v.linked_clone = true
+
+    v.check_guest_additions = true
+    if Vagrant.has_plugin?("vagrant-vbguest") then
+      config.vbguest.auto_update = false
+    end
+
+    v.memory = 2048
+    v.cpus = 1
+  end
+
+  
+  config.vm.provision "file", source: "./AWS", destination: "~/.ssh/AWS"
+  config.vm.provision "file", source: "./config", destination: "~/.ssh/config"
+
+  config.vm.define "frontend", primary: true do |host|
+    host.vm.hostname = "frontend"
+    host.vm.network "private_network", ip: "192.168.100.10"
+    host.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+#    config.vm.provision "file", source: "./AWS", destination: "~/.ssh/AWS"
+#    config.vm.provision "file", source: "./config", destination: "~/.ssh/config"
+    config.vm.provision "file", source: "./nginx.conf", destination: "tmp/nginx.conf"
+    config.vm.provision "shell", path: "./install_frontend.sh", privileged: false
+  end
+
+  config.vm.define "backend" do |host|
+    host.vm.hostname = "backend"
+    host.vm.network "private_network", ip: "192.168.100.11"
+#    config.vm.provision "file", source: "./AWS", destination: "~/.ssh/AWS"
+#    config.vm.provision "file", source: "./config", destination: "~/.ssh/config"
+    config.vm.provision "shell", path: "./install_backend.sh", privileged: false
+  end 
+
+#  config.vm.define "database" do |host|
+#    host.vm.hostname = "database"
+#    host.vm.network "private_network", ip: "192.168.100.12"
+   # config.vm.provision "shell", path: "./install_dnsutils.sh"
+#    config.vm.provision "shell", path: "./install_database.sh"
+#  end 
+end

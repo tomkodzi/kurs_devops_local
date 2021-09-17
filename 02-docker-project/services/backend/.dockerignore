@@ -1,0 +1,6 @@
+.env*
+scripts/
+config-prod.sh
+README.md
+
+
