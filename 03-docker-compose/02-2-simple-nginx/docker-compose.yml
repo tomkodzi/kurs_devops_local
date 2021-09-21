@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  simple-nginx:
+    build: .
+    ports:
+      - 80:80

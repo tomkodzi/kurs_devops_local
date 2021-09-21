@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  curl-script:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: https://www.interia.pl
+    ports:
+      - 80:80
+    
+
